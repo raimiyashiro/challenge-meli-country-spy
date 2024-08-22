@@ -17,6 +17,7 @@ public class OriginCountryServiceImpl implements OriginCountryService {
 
     @Override
     public OriginCountry findByIp(String ip) {
+        // TODO: The next step would be adding a Cache Solution to avoid unnecessary calls to external APIs
         CountryDetailsDTO countryDetails = countryDetailsService.getCountryDetails(ip);
         double countryCurrency = countryCurrencyService.getCurrencyInformation(countryDetails.getLocale().getCountry());
 
