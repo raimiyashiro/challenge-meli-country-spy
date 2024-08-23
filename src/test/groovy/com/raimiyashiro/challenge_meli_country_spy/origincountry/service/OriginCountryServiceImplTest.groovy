@@ -25,7 +25,7 @@ class OriginCountryServiceImplTest extends Specification {
         def expectedCurrency = new Random().nextDouble()
 
         and: "external services respond as expected"
-        detailsService.getCountryDetails(ipAddress) >> expectedDetails
+        detailsService.getCountryDetails(ipAddress) >> Optional.of(expectedDetails)
         1 * currencyService.getCurrencyInformation(_) >> expectedCurrency
 
         when:
