@@ -8,12 +8,15 @@ import java.util.Optional;
 
 @Service
 public class CountryDetailsServiceImpl implements CountryDetailsService {
+    private static final Locale ARGENTINA = new Locale("es", "AR");
+    private static final String RANDOM_IP_FROM_BUENOS_AIRES = "181.30.125.198";
+
     @Override
     public Optional<CountryDetailsDTO> getCountryDetails(String ip) {
-        if (ip != null && ip.startsWith("181")) {
+        if (ip.equals(RANDOM_IP_FROM_BUENOS_AIRES)) {
             CountryDetailsDTO countryDetails = CountryDetailsDTO.builder()
                     .countryName("Argentina")
-                    .locale(new Locale("es", "AR"))
+                    .locale(ARGENTINA)
                     .population(46230000)
                     .build();
             return Optional.of(countryDetails);

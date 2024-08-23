@@ -36,8 +36,19 @@ Partindo do pressuposto que utilizaríamos as práticas RESTful, escolhi a nomen
 
 - ".../api/v1/origin-country?ip=$ip"
 
-* Inicialmente, por puro nervosismo, eu escolhi ir por um caminho diferente - "api/v1/countryOrigin/{ip}. - parando para pensar, poderíamos discutir se o recurso principal da API seria originCountry ou ip, mas decidi que o segundo seria apenas um parâmetro de busca, e a nossa API ser especializada em demonstrar informações de países.
+* Inicialmente, por puro nervosismo, eu escolhi ir por um caminho diferente - "api/v1/countryOrigin/{ip}. - parando para
+  pensar, poderíamos discutir se o recurso principal da API seria origin-country ou ipAddress, mas decidi que o segundo
+  seria apenas um parâmetro de busca, e a nossa API ser especializada em demonstrar informações de países.
 
 ![Draw.io Diagram](https://raw.githubusercontent.com/raimiyashiro/raw-docs/master/Untitled%20Diagram%20(2).jpg)
 
+Ainda durante o desenho da solução, para o item 1, foi solicitado que se considerasse a performance, evitando fazer
+chamadas desnecessárias para os serviços externos. Logicamente, implementar uma estratégia de caching serviria para
+alguns cenários:
 
+- Um endereço de IP é consultado, fazemos uma chamada aos serviços externos, gravando o resultado no Cache.
+- Quando o mesmo IP é consultado novamente, dentro de um período estabelecido, podemos utilizar a resposta gravada no
+  Cache
+- Após o término deste período, caso o mesmo IP seja passado como parâmetro, é necessário fazer um update nos dados do
+  registro (por hora, apenas population e currencyRateInUSD)
+- É incorreto assumir que vários IPs pertencem ao mesmo país apenas por possuírem um mesmo prefixo
