@@ -35,9 +35,10 @@ dependencies {
 
     // Spring implementation dependencies
     implementation 'org.springframework.boot:spring-boot-starter-web:3.0.0'
-    implementation 'org.springframework.modulith:spring-modulith-starter-core' // Not sure about this one...
+    implementation 'org.springframework.modulith:spring-modulith-starter-core'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.3.3'
-//    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
 
 
     // Spring Test dependencies

@@ -8,6 +8,8 @@ import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.externa
 import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external.CountryDetailsService;
 import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external.dto.CountryDetailsDTO;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +21,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OriginCountryServiceImpl implements OriginCountryService {
 
+    private static final Logger logger = LoggerFactory.getLogger(OriginCountryServiceImpl.class);
     private final OriginCountryRepository originCountryRepository;
-
-    // Since these are just mocks (they are meant to be "external"), I'll keep it simple
     private final CountryDetailsService countryDetailsService;
     private final CountryCurrencyService countryCurrencyService;
 
     @Cacheable(value = "country", key = "#ipAddress")
     @Override
     public OriginCountry findByIp(String ipAddress) {
+        logger.info("Searching for country info for the ipAddress: {}", ipAddress);
         Optional<OriginCountry> existingCountryInfo = originCountryRepository.findById(ipAddress);
 
         if (existingCountryInfo.isPresent()) {
@@ -40,7 +42,7 @@ public class OriginCountryServiceImpl implements OriginCountryService {
 
         OriginCountry originCountry = OriginCountry.builder()
                 .ipAddress(ipAddress)
-                .countryName(countryDetails.getCountryName())
+                .name(countryDetails.getCountryName())
                 .currencyRateInUSD(currencyRateInUSD)
                 .locale(countryDetails.getLocale())
                 .population(countryDetails.getPopulation())
@@ -53,6 +55,7 @@ public class OriginCountryServiceImpl implements OriginCountryService {
 
     @Override
     public OriginCountry updateCountryInfo(OriginCountry originCountry) {
+        logger.info("Updating country info for the ipAddress: {}", originCountry.getIpAddress());
         originCountry.setCurrencyRateInUSD(getCurrencyRateInUSD(originCountry.getLocale().getCountry()));
         originCountry.setPopulation(getCountryDetails(originCountry.getIpAddress()).getPopulation());
         originCountry.setUpdatedAt(ZonedDateTime.now());

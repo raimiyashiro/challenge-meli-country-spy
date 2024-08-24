@@ -52,3 +52,5 @@ alguns cenários:
 - Após o término deste período, caso o mesmo IP seja passado como parâmetro, é necessário fazer um update nos dados do
   registro (por hora, apenas population e currencyRateInUSD)
 - É incorreto assumir que vários IPs pertencem ao mesmo país apenas por possuírem um mesmo prefixo
+
+Mesmo com as limitações técnicas, já conseguimos economizar algumas chamadas com a implementação do Redis.

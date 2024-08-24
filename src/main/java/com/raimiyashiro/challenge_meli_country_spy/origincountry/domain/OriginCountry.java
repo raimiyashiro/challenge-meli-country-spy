@@ -1,21 +1,24 @@
 package com.raimiyashiro.challenge_meli_country_spy.origincountry.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Locale;
 
 @Data
 @Builder
-@RedisHash("country")
-public class OriginCountry {
+@Entity
+@Table(name = "origin_country")
+public class OriginCountry implements Serializable {
     @Id
     private String ipAddress;
-    private String countryName;
+    private String name;
     private Locale locale;
     private BigDecimal currencyRateInUSD;
     private ZonedDateTime updatedAt;

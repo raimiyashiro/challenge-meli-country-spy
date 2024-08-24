@@ -43,7 +43,7 @@ class OriginCountryServiceImplTest extends Specification {
         def result = subject.findByIp(ipAddress)
 
         then:
-        result.countryName == expectedDetails.countryName
+        result.name == expectedDetails.countryName
         result.currencyRateInUSD == expectedCurrency
         result.locale == expectedDetails.locale
         result.population == expectedDetails.population
@@ -54,7 +54,7 @@ class OriginCountryServiceImplTest extends Specification {
         def ipAddress = "181.56.0.1"
         def existingCountryInfo = OriginCountry.builder()
                 .ipAddress(ipAddress)
-                .countryName("Argentina")
+                .name("Argentina")
                 .locale(new Locale("es", "AR"))
                 .population(1000)
                 .currencyRateInUSD(0.001)
