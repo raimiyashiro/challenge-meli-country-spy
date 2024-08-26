@@ -3,8 +3,10 @@ package com.raimiyashiro.challenge_meli_country_spy.origincountry.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,6 +15,8 @@ import java.util.Locale;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "origin_country")
 public class OriginCountry implements Serializable {
