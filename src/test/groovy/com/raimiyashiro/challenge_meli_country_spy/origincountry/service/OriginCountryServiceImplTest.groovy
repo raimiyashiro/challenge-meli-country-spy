@@ -1,6 +1,8 @@
 package com.raimiyashiro.challenge_meli_country_spy.origincountry.service
 
 import com.raimiyashiro.challenge_meli_country_spy.origincountry.domain.OriginCountry
+import com.raimiyashiro.challenge_meli_country_spy.origincountry.exception.CountryNotFoundException
+import com.raimiyashiro.challenge_meli_country_spy.origincountry.exception.CurrencyNotFoundException
 import com.raimiyashiro.challenge_meli_country_spy.origincountry.repository.OriginCountryRepository
 import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external.CountryCurrencyService
 import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external.CountryDetailsService
@@ -34,7 +36,7 @@ class OriginCountryServiceImplTest extends Specification {
 
         and: "external services respond as expected"
         detailsService.getCountryDetails(ipAddress) >> Optional.of(expectedDetails)
-        1 * currencyService.getCurrencyInformation(_) >> Optional.of(expectedCurrency)
+        currencyService.getCurrencyInformation(expectedDetails.locale.country) >> Optional.of(expectedCurrency)
 
         and: "the new ip is persisted"
         1 * repository.save(_) >> { OriginCountry country -> return country }
@@ -67,7 +69,7 @@ class OriginCountryServiceImplTest extends Specification {
         def (newPopulation, newCurrencyRate) = [2000, 0.002]
         detailsService.getCountryDetails(ipAddress) >> Optional.of(CountryDetailsDTO.builder().population(newPopulation)
                 .build())
-        1 * currencyService.getCurrencyInformation(existingCountryInfo.locale.country) >> Optional.of(newCurrencyRate)
+        currencyService.getCurrencyInformation(existingCountryInfo.locale.country) >> Optional.of(newCurrencyRate)
 
         and: "updated info is persisted"
         1 * repository.save(_) >> { OriginCountry country -> return country }
@@ -79,5 +81,37 @@ class OriginCountryServiceImplTest extends Specification {
         result.isUpdated()
         result.population == newPopulation
         result.currencyRateInUSD == newCurrencyRate
+    }
+
+    def "should throw CountryNotFoundException when the given ipAddress does not match"() {
+        given:
+        def invalidIpAddress = "123"
+        repository.findById(invalidIpAddress) >> Optional.empty()
+        detailsService.getCountryDetails(invalidIpAddress) >> Optional.empty()
+
+        when:
+        subject.findByIp(invalidIpAddress)
+
+        then:
+        thrown(CountryNotFoundException.class)
+    }
+
+    def "should throw CurrencyNotFoundException when the given country does not match"() {
+        given:
+        def ipAddress = "456"
+        def expectedDetails = CountryDetailsDTO.builder()
+                .countryName("Zimbabwe")
+                .locale(new Locale("en", "ZW"))
+                .population(5)
+                .build()
+        repository.findById(ipAddress) >> Optional.empty()
+        detailsService.getCountryDetails(ipAddress) >> Optional.of(expectedDetails)
+        currencyService.getCurrencyInformation(expectedDetails.locale.country) >> Optional.empty()
+
+        when:
+        subject.findByIp(ipAddress)
+
+        then:
+        thrown(CurrencyNotFoundException.class)
     }
 }
