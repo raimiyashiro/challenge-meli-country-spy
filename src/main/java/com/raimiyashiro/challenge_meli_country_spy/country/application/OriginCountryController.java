@@ -1,10 +1,10 @@
-package com.raimiyashiro.challenge_meli_country_spy.origincountry.controller;
+package com.raimiyashiro.challenge_meli_country_spy.country.application;
 
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.domain.OriginCountry;
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.exception.ApiError;
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.exception.CountryNotFoundException;
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.exception.CurrencyNotFoundException;
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.OriginCountryService;
+import com.raimiyashiro.challenge_meli_country_spy.country.application.exception.ApiError;
+import com.raimiyashiro.challenge_meli_country_spy.country.application.exception.CountryNotFoundException;
+import com.raimiyashiro.challenge_meli_country_spy.country.application.exception.CurrencyNotFoundException;
+import com.raimiyashiro.challenge_meli_country_spy.country.domain.OriginCountry;
+import com.raimiyashiro.challenge_meli_country_spy.country.domain.OriginCountryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

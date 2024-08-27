@@ -1,4 +1,4 @@
-package com.raimiyashiro.challenge_meli_country_spy.origincountry.domain;
+package com.raimiyashiro.challenge_meli_country_spy.country.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

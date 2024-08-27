@@ -1,4 +1,4 @@
-package com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external;
+package com.raimiyashiro.challenge_meli_country_spy.country.domain;
 
 
 import java.math.BigDecimal;

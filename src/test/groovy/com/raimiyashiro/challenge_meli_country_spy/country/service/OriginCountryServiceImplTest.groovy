@@ -1,12 +1,9 @@
-package com.raimiyashiro.challenge_meli_country_spy.origincountry.service
+package com.raimiyashiro.challenge_meli_country_spy.country.service
 
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.domain.OriginCountry
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.exception.CountryNotFoundException
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.exception.CurrencyNotFoundException
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.repository.OriginCountryRepository
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external.CountryCurrencyService
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external.CountryDetailsService
-import com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external.dto.CountryDetailsDTO
+import com.raimiyashiro.challenge_meli_country_spy.country.application.exception.CountryNotFoundException
+import com.raimiyashiro.challenge_meli_country_spy.country.application.exception.CurrencyNotFoundException
+import com.raimiyashiro.challenge_meli_country_spy.country.domain.*
+import com.raimiyashiro.challenge_meli_country_spy.country.infraestructure.dto.CountryDetailsDTO
 import spock.lang.Specification
 import spock.lang.Subject
 

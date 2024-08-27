@@ -1,4 +1,4 @@
-package com.raimiyashiro.challenge_meli_country_spy.origincountry.service.external.dto;
+package com.raimiyashiro.challenge_meli_country_spy.country.infraestructure.dto;
 
 import lombok.Builder;
 import lombok.Data;
